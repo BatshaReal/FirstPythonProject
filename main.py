@@ -7,6 +7,21 @@ bot = telebot.TeleBot("3SUPER3RARE3TOKEN3")
 from telebot import types
 my_bg = types.BackgroundFillSolid(type='solid', color='#FF0000')
 
+@bot.message_handler(commands=['Рассказ'])
+def story_start(message):
+    msg = bot.reply_to(message, "Как зовут героя?")
+    bot.register_next_step_handler(msg, get_hero_name)
+
+def get_hero_name(message):
+    hero = message.text
+    msg = bot.reply_to(message, "Как называется рассказ?")
+    bot.register_next_step_handler(msg, get_story_name, hero)
+
+def get_story_name(message, hero):
+    name = message.text
+    story = f"{name} давным давно жил {hero}, конец"
+    bot.reply_to(message, story)
+
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
     bot.reply_to(message, "Привет! Я твой Telegram бот. Напиши что-нибудь!")
@@ -33,4 +48,5 @@ def send_bye(message):
 def echo_all(message):
     bot.reply_to(message, message.text)
         
+bot.polling()   
 bot.polling()   
