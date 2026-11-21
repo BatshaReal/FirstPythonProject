@@ -4,6 +4,8 @@ import random
     # Этот токен ты получаешь от BotFather, чтобы бот мог работать
 bot = telebot.TeleBot("3SUPER3RARE3TOKEN3")
 
+print("hello")
+
 from telebot import types
 my_bg = types.BackgroundFillSolid(type='solid', color='#FF0000')
 
